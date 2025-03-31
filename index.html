@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Refurbish Your Clothes</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: white;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header Styles */
+    h1 {
+      color: #2e7d32;
+      text-align: center;
+      font-size: 2.5rem;
+      margin: 2rem 0;
+    }
+
+    /* Form Container */
+    .form-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background-color: #f9f9f9;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .grid-colors {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
+      gap: 0.5rem;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 1rem;
+    }
+
+    .grid-patches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* Service Checkboxes */
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .service-price {
+      font-size: 0.875rem;
+      color: #666;
+      margin-left: 0.5rem;
+    }
+
+    /* Color Swatches */
+    .color-swatch {
+      width: 3rem;
+      height: 3rem;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.05);
+    }
+
+    .color-swatch.selected {
+      border: 3px solid #2e7d32;
+    }
+
+    .color-name {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    /* Patch Options */
+    .patch-item {
+      cursor: pointer;
+    }
+
+    .patch-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      transition: border-color 0.2s;
+    }
+
+    .patch-image.selected {
+      border: 4px solid #2e7d32;
+    }
+
+    .patch-name {
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 0.875rem;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: #1b5e20;
+    }
+
+    /* Conditional Display */
+    .hidden {
+      display: none;
+    }
+
+    /* Price Summary */
+    .price-summary {
+      margin-top: 2rem;
+      padding: 1rem;
+      border-top: 1px solid #ddd;
+    }
+
+    .price-summary h3 {
+      margin-bottom: 1rem;
+      color: #2e7d32;
+    }
+
+    .price-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+    }
+
+    .price-item.total {
+      font-weight: bold;
+      border-top: 1px solid #ddd;
+      margin-top: 0.5rem;
+      padding-top: 1rem;
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Refurbish Your Clothes</h1>
+
+    <div class="form-container">
+      <form id="refurbishmentForm">
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address</label>
+          <textarea id="address" name="address" placeholder="Your Full Address" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Refurbishment Services</label>
+          <div class="grid-3">
+            <div class="checkbox-group">
+              <input type="checkbox" id="tailoring" name="services" value="tailoring" data-price="70">
+              <label for="tailoring">Tailoring <span class="service-price">($70)</span></label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="reDying" name="services" value="reDying" data-price="70">
+              <label for="reDying">Re-Dying <span class="service-price">($70)</span></label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="patches" name="services" value="patches" data-price="60">
+              <label for="patches">Patches <span class="service-price">($60)</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div id="dyeColorSection" class="form-group hidden">
+          <label>Choose Dye Color</label>
+          <div id="colorOptions" class="grid-colors">
+            <!-- Color options will be generated by JavaScript -->
+          </div>
+          <p id="selectedColorName" class="color-name"></p>
+        </div>
+
+        <div id="patchesSection" class="form-group hidden">
+          <label>Select Patches</label>
+          <div id="patchOptions" class="grid-patches">
+            <!-- Patch options will be generated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="clothDetails">Cloth Details</label>
+          <textarea id="clothDetails" name="clothDetails" placeholder="Describe your clothing item and specific requirements"></textarea>
+        </div>
+
+        <div class="price-summary">
+          <h3>Price Summary</h3>
+          <div id="priceItemsContainer">
+            <!-- Price items will be generated by JavaScript -->
+          </div>
+          <div class="price-item total">
+            <span>Total</span>
+            <span id="totalPrice">$0</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Refurbishment Request</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Service Prices
+      const SERVICE_PRICES = {
+        tailoring: 70,
+        reDying: 70,
+        patches: 60
+      };
+
+      // Color Options
+      const COLOR_OPTIONS = [
+        // Neutral Tones
+        { name: 'White', hex: '#FFFFFF' },
+        { name: 'Ivory', hex: '#FFFFF0' },
+        { name: 'Beige', hex: '#F5F5DC' },
+        { name: 'Light Gray', hex: '#D3D3D3' },
+        { name: 'Charcoal', hex: '#36454F' },
+        { name: 'Black', hex: '#000000' },
+
+        // Earth Tones
+        { name: 'Sand', hex: '#C2B280' },
+        { name: 'Camel', hex: '#C19A6B' },
+        { name: 'Rust', hex: '#B7410E' },
+        { name: 'Terracotta', hex: '#E2725B' },
+        { name: 'Olive Green', hex: '#808000' },
+
+        // Blue Spectrum
+        { name: 'Sky Blue', hex: '#87CEEB' },
+        { name: 'Navy Blue', hex: '#000080' },
+        { name: 'Teal', hex: '#008080' },
+        { name: 'Indigo', hex: '#4B0082' },
+        { name: 'Powder Blue', hex: '#B0E0E6' },
+
+        // Green Spectrum
+        { name: 'Mint Green', hex: '#98FB98' },
+        { name: 'Forest Green', hex: '#228B22' },
+        { name: 'Sage Green', hex: '#9DC183' },
+        { name: 'Emerald', hex: '#50C878' },
+        { name: 'Lime Green', hex: '#32CD32' },
+
+        // Pink and Purple Spectrum
+        { name: 'Light Pink', hex: '#FFB6C1' },
+        { name: 'Hot Pink', hex: '#FF69B4' },
+        { name: 'Orchid', hex: '#DA70D6' },
+        { name: 'Lavender', hex: '#E6E6FA' },
+        { name: 'Plum', hex: '#8E4585' }
+      ];
+
+      // Patch Options
+      const PATCH_OPTIONS = [
+        { id: 'floral', name: 'Floral' },
+        { id: 'geometric', name: 'Geometric' },
+        { id: 'vintage', name: 'Vintage' },
+        { id: 'abstract', name: 'Abstract' },
+        { id: 'minimal', name: 'Minimal' }
+      ];
+
+      // Elements
+      const reDyingCheckbox = document.getElementById('reDying');
+      const patchesCheckbox = document.getElementById('patches');
+      const tailoringCheckbox = document.getElementById('tailoring');
+      const dyeColorSection = document.getElementById('dyeColorSection');
+      const patchesSection = document.getElementById('patchesSection');
+      const colorOptions = document.getElementById('colorOptions');
+      const patchOptions = document.getElementById('patchOptions');
+      const selectedColorName = document.getElementById('selectedColorName');
+      const priceItemsContainer = document.getElementById('priceItemsContainer');
+      const totalPriceElement = document.getElementById('totalPrice');
+      const form = document.getElementById('refurbishmentForm');
+
+      // State
+      let selectedColor = null;
+      let selectedPatches = [];
+      let selectedServices = {
+        tailoring: false,
+        reDying: false,
+        patches: false
+      };
+
+      // Initialize color options
+      COLOR_OPTIONS.forEach(color => {
+        const colorSwatch = document.createElement('div');
+        colorSwatch.className = 'color-swatch';
+        colorSwatch.style.backgroundColor = color.hex;
+        colorSwatch.title = color.name;
+        colorSwatch.setAttribute('data-color-name', color.name);
+        colorSwatch.setAttribute('data-color-hex', color.hex);
+        
+        colorSwatch.addEventListener('click', function() {
+          // Remove selection from all swatches
+          document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.classList.remove('selected');
+          });
+          
+          // Add selection to clicked swatch
+          this.classList.add('selected');
+          
+          // Update selected color
+          selectedColor = {
+            name: this.getAttribute('data-color-name'),
+            hex: this.getAttribute('data-color-hex')
+          };
+          
+          // Update display
+          selectedColorName.textContent = `Selected Color: ${selectedColor.name}`;
+        });
+        
+        colorOptions.appendChild(colorSwatch);
+      });
+
+      // Initialize patch options
+      PATCH_OPTIONS.forEach(patch => {
+        const patchItem = document.createElement('div');
+        patchItem.className = 'patch-item';
+        
+        const patchImage = document.createElement('div');
+        patchImage.className = 'patch-image';
+        patchImage.style.backgroundColor = '#eee';
+        patchImage.style.display = 'flex';
+        patchImage.style.alignItems = 'center';
+        patchImage.style.justifyContent = 'center';
+        patchImage.textContent = patch.name;
+        patchImage.setAttribute('data-patch-id', patch.id);
+        
+        const patchName = document.createElement('p');
+        patchName.className = 'patch-name';
+        patchName.textContent = patch.name;
+        
+        patchItem.appendChild(patchImage);
+        patchItem.appendChild(patchName);
+        
+        patchItem.addEventListener('click', function() {
+          const patchId = patchImage.getAttribute('data-patch-id');
+          
+          if (selectedPatches.includes(patchId)) {
+            // Remove from selection
+            selectedPatches = selectedPatches.filter(id => id !== patchId);
+            patchImage.classList.remove('selected');
+          } else {
+            // Add to selection
+            selectedPatches.push(patchId);
+            patchImage.classList.add('selected');
+          }
+        });
+        
+        patchOptions.appendChild(patchItem);
+      });
+
+      // Function to update total price
+      function updatePriceDisplay() {
+        // Clear existing price items
+        priceItemsContainer.innerHTML = '';
+        
+        // Calculate total price
+        let totalPrice = 0;
+        
+        // Add service prices
+        Object.keys(selectedServices).forEach(service => {
+          if (selectedServices[service]) {
+            const price = SERVICE_PRICES[service];
+            totalPrice += price;
+            
+            // Create price item
+            const priceItem = document.createElement('div');
+            priceItem.className = 'price-item';
+            priceItem.innerHTML = `
+              <span>${service.charAt(0).toUpperCase() + service.slice(1)}</span>
+              <span>$${price}</span>
+            `;
+            priceItemsContainer.appendChild(priceItem);
+          }
+        });
+        
+        // Update total price display
+        totalPriceElement.textContent = `$${totalPrice}`;
+      }
+
+      // Toggle visibility of sections based on checkboxes
+      reDyingCheckbox.addEventListener('change', function() {
+        dyeColorSection.classList.toggle('hidden', !this.checked);
+        selectedServices.reDying = this.checked;
+        updatePriceDisplay();
+      });
+
+      patchesCheckbox.addEventListener('change', function() {
+        patchesSection.classList.toggle('hidden', !this.checked);
+        selectedServices.patches = this.checked;
+        updatePriceDisplay();
+      });
+
+      tailoringCheckbox.addEventListener('change', function() {
+        selectedServices.tailoring = this.checked;
+        updatePriceDisplay();
+      });
+
+      // Form submission
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Gather form data
+        const formData = {
+          name: document.getElementById('name').value,
+          phone: document.getElementById('phone').value,
+          address: document.getElementById('address').value,
+          services: selectedServices,
+          clothDetails: document.getElementById('clothDetails').value,
+          selectedColor: selectedColor,
+          selectedPatches: selectedPatches,
+          totalPrice: parseFloat(totalPriceElement.textContent.replace('$', ''))
+        };
+        
+        console.log('Refurbishment Request:', formData);
+        alert('Your refurbishment request has been submitted! Total: $' + formData.totalPrice);
+      });
+    });
+  </script>
+</body>
+</html>
