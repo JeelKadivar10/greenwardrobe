@@ -457,14 +457,14 @@
             priceItem.className = 'price-item';
             priceItem.innerHTML = `
               <span>${service.charAt(0).toUpperCase() + service.slice(1)}</span>
-              <span>$${price}</span>
+              <span>₹${price}</span>
             `;
             priceItemsContainer.appendChild(priceItem);
           }
         });
         
         // Update total price display
-        totalPriceElement.textContent = `$${totalPrice}`;
+        totalPriceElement.textContent = `₹${totalPrice}`;
       }
 
       // Toggle visibility of sections based on checkboxes
@@ -498,7 +498,7 @@
           clothDetails: document.getElementById('clothDetails').value,
           selectedColor: selectedColor,
           selectedPatches: selectedPatches,
-          totalPrice: parseFloat(totalPriceElement.textContent.replace('$', ''))
+          totalPrice: parseFloat(totalPriceElement.textContent.replace('₹', ''))
         };
         
         console.log('Refurbishment Request:', formData);
